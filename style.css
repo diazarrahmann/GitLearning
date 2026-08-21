@@ -1,0 +1,19 @@
+@keyframes UpDown {
+    0% {
+        transform: translateY(10px);
+    }
+    50% {
+        transform: translateY(30px);
+    }
+    100% {
+        transform: translateY(100px);
+    }
+}
+
+img {
+    animation: UpDown 3s ease-in-out infinite;
+    position:relative;
+    top:10px;
+    left:700px;
+}
+
