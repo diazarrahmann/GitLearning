@@ -1,2 +1,2 @@
 # GitLearning
-Learn about GIt
+Learn about Git
