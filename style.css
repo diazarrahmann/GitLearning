@@ -46,7 +46,6 @@ img {
     from {
         transform: translateX(-20px);
     }
-
     to {
         transform: translateX(20px);
     }
@@ -72,7 +71,7 @@ body{
 }
 
 .dark {
-    background-color:#413e3e;
+    background-color:#A9A9A9;
     color:white;
 }
 
