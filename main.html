@@ -1,20 +1,33 @@
- <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=2.0">
-    <title>BELAJAR GIT</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Learning</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <img src="images.jpg" alt="denmaru">
+    <h1>MAGANG PT DENSO INDONESIA</h1>
+    <div class="container">
+    <img src="image/denmaru.png" alt="denmaru">
+    <h1 id="hasil"></h1>
+
+    <div class="form">
+        <input type="text" id="YouName" placeholder="Masukkan nama">
+        <button onclick="tegur()">Kirim</button>
+        <button onclick="resetForm()">Reset</button>
+        <button id="themeButton" onclick="darkMode()">🌙 Dark Mode</button>
+        <div id ="hasil"></div>
+    </div>
+    </div>
     
-    <script>
-    alert("GIT & GITHUB");
+    <script src="script.js"></script>
+    <!--alert("GIT & GITHUB");
 
     let YouName = prompt("masukkan nama anda:");
-    document.write("<h1 id='YouName'>" + YouName + "</h1>");
-</script>
-</body>
+    document.write("<h1 id='YouName'>" + YouName + "</h1>")-->
 
+</body>
 </html>
