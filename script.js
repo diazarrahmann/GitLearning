@@ -11,13 +11,13 @@ function tegur(){
     let ucapan;
 
     if (waktu < 12) {
-        ucapan = "Good Morning";
-    } else if ( waktu < 15){
-        ucapan = "Good Afternoon";
-    } else if ( waktu < 18){
-        ucapan = "Good Evening";
+        ucapan = "Selamat Pagi";
+    } else if (waktu < 15) {
+        ucapan = "Selamat Siang";
+    } else if (waktu < 18) {
+        ucapan = "Selamat Sore";
     } else {
-            "Good Night"
+        ucapan = "Selamat Malam";
     }
 
     let pesan = ucapan + ", " + nama +"! Selamat Datang.";

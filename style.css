@@ -1,17 +1,42 @@
+/* =========================
+   GENERAL
+========================= */
+
 /*body {
-    background-color: #ADD8E6;
+    background-color: #ffffff;
+    color: black;
 }*/
-h1{
+
+
+/* =========================
+   HEADING
+========================= */
+
+h1 {
     text-align: center;
     margin-top: 120px;
 }
+
+
+/* =========================
+   CONTAINER
+========================= */
 
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+
     min-height: 100vh;
+}
+
+/* ===== ANIMASI GAMBAR ===== */
+
+img {
+    width: 300px;
+
+    animation: UpDown 3s ease-in-out infinite alternate;
 }
 
 @keyframes UpDown {
@@ -28,29 +53,27 @@ h1{
     }
 }
 
-img {
-    width: 300px;
 
-    animation: UpDown 3s ease-in-out infinite alternate;
-}
+/* ===== RESULT ===== */
 
- 
 #hasil {
     margin-top: 50px;
 
     animation: LeftRight 1s ease-in-out infinite alternate;
 }
 
-
 @keyframes LeftRight {
     from {
         transform: translateX(-20px);
     }
+
     to {
         transform: translateX(20px);
     }
 }
 
+
+/* ====== FORM ======  */
 
 .form {
     margin-top: 30px;
@@ -62,29 +85,27 @@ input {
 
 button {
     padding: 10px 20px;
-    cursor: pointer;    
+    cursor: pointer;
 }
 
-body{
-    background-color:#FFFFFF;
-    color:black;
-}
+
+/*=== FITUR DARK MODE ==== */
 
 .dark {
-    background-color:#A9A9A9;
-    color:white;
+    background-color: #474747;
+    color: white;
 }
 
-.dark input{
+.dark input {
     background-color: #333;
-    color:white;
+    color: white;
 }
 
-.dark input::placeholder{
-    color:#aaa;
+.dark input::placeholder {
+    color: #aaa;
 }
 
-.dark button{
+.dark button {
     background-color: #444;
     color: white;
 }
