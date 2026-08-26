@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="login-container">
+        <div class="login-box">
+
+        <h1>Login</h1>
+        <p>Silahkan Masuk ke Akun Anda</p>
+
+        <form id="loginForm">
+        <div class="input-group">
+            <label for="npk">NPK</label>
+            <input type="text" id="npk" placeholder="Masukkan NPK" maxlength="7" required>        
+        </div>
+        
+        <div class="input-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Masukkan username" required>
+        </div>
+
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Masukkan password" minlength="8" required>
+        </div>
+
+        <button type="submit">Login</button>
+        <p id="loginMessage"></p>
+        </form>
+
+        <a href="main.html" class="back-link">Lupa password</a>
+        <!--<p>Belum punya akun? <a href="register.html">Daftar di sini</a></p> -->
+
+    </div>
+    </div>
+    <script src="script.js"></script>
+    </body>
+</html>
