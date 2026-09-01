@@ -41,49 +41,66 @@ function darkMode(){
     button.textContent = document.body.classList.contains("dark") ? "☀️ Light Mode" : "🌙 Dark Mode";*/
 }
 
-function resetForm(){
+/*function resetForm(){
     document.getElementById("YouName").value = "";
     document.getElementById("hasil").innerText = "";
+}*/
+
+const defaultUsers = [
+    {
+        npk: "1234567", passwordHash: "06ba33499107fa199d223b4d925ab5706289a514753256b0795fd7da4a962153"
+    }];
+
+if (!localStorage.getItem("users")) {
+    localStorage.setItem("users", JSON.stringify(defaultUsers)
+    );
 }
 
 const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
-    loginForm.addEventListener("submit",async function(event) {
+    loginForm.addEventListener("submit", async function(event) {
         event.preventDefault();
 
-        let npk = document.getElementById("npk").value;
-        let username = document.getElementById("username").value;
-        let password = document.getElementById("password").value;
+        const npk = document.getElementById("npk").value.trim();
+        const password = document.getElementById("password").value;
+        const message = document.getElementById("loginMessage");
 
-        let usernameBenar = "admin";
-        let passwordBenar = "jelasKelas12";
+        // Ambil user dari Local Storage
+        const users = getUsers();
 
-        let message = document.getElementById("loginMessage");
+        // Cari user berdasarkan NPK
+        const user = users.find(function(user) {
+            return user.npk === npk;
+        });
 
-        if (username === usernameBenar && password === passwordBenar) {
-            message.innerText = "Login Berhasil!";
-            message.className = "success";
-
-            let passwordHash = await hashPassword(password);
-
-            sessionStorage.setItem("npk", npk);
-            sessionStorage.setItem("username", username);
-            sessionStorage.setItem("password", passwordHash);
-            
-            /*setTimeout(function() {
-                window.location.href = "main.html";
-            }, 1500);*/
-        
-        } else {
-            message.innerText = "Login Gagal! Username atau Password salah.";
+        if (!user) {
+            message.innerText = "Login gagal! NPK tidak ditemukan.";
             message.className = "error";
+            return;
         }
 
+        const passwordHash = await hashPassword(password);
+
+        if (passwordHash !== user.passwordHash) {
+            message.innerText = "Login gagal! Password salah";
+            message.className = "error";
+            return;
+        }
+
+        message.innerText = "Login berhasil!";
+        message.className = "success";
+
+        sessionStorage.setItem("npk", user.npk);
+        sessionStorage.setItem("name", user.name);
+
+        setTimeout(function() {
+            window.location.href = "main.html";
+        }, 1500);
     });
 }
 
-function tampilkanUser() {
+/*function tampilkanUser() {
     let npkUser = sessionStorage.getItem("npk");
     let usernameUser = sessionStorage.getItem("username");
     let passwordUser = sessionStorage.getItem("password");
@@ -95,21 +112,21 @@ NPK: ${npkUser}
 Username: ${usernameUser}
 Password: ${passwordUser.length}
     `);
-}
+}*/
 
 async function hashPassword(password) {
     const encoder = new TextEncoder();
     const data = encoder.encode(password);
 
-    console.log(data);
+    //console.log(data);
 
     const hashBuffer = await crypto.subtle.digest("SHA-256", data);
 
-    console.log(hashBuffer);
+    //console.log(hashBuffer);
 
     const hashArray = Array.from(new Uint8Array(hashBuffer));
 
-    console.log(hashArray);
+    //console.log(hashArray);
 
     const hashHex = hashArray
         .map(byte => byte.toString(16).padStart(2, "0"))
@@ -119,22 +136,184 @@ async function hashPassword(password) {
     return hashHex;
 }
 
-/* if (window.location.pathname.endsWith("main.html")) {
+function setupPasswordToggle(buttonId, inputId) {
 
-let npkUser = sessionStorage.getItem("npk");
-let usernameUser = sessionStorage.getItem("username");
-let passwordUser = sessionStorage.getItem("password");
+    const button = document.getElementById(buttonId);
+    const input = document.getElementById(inputId);
 
-/*let userInfo = document.getElementById("userInfo");
-
-    if (userInfo && npkUser && usernameUser && passwordUser) {
-    /*userInfo.innerHTML alert (`
-    Login Berhasil!
-
-    NPK: ${npkUser}
-    Username: ${usernameUser}
-    Password: ${passwordUser}
-    `);
+    if (!button || !input) {
+        return;
     }
-}*/
+
+    button.addEventListener("click", function () {
+
+        const icon = button.querySelector("i");
+
+        if (input.type === "password") {
+
+            input.type = "text";
+
+            icon.classList.remove("bi-eye-slash");
+            icon.classList.add("bi-eye");
+
+        } else {
+
+            input.type = "password";
+
+            icon.classList.remove("bi-eye");
+            icon.classList.add("bi-eye-slash");
+
+        }
+
+    });
+
+}
+
+
+// LOGIN
+setupPasswordToggle(
+    "togglePassword",
+    "password"
+);
+
+
+// FORGOT PASSWORD
+setupPasswordToggle(
+    "toggleNewPassword",
+    "newPassword"
+);
+
+setupPasswordToggle(
+    "toggleConfirmPassword",
+    "confirmPassword"
+);
+
+const registerForm = document.getElementById("registerForm");
+
+if (registerForm){
+    registerForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const npk = document.getElementById("npk").value.trim();
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+        const message = document.getElementById("registerMessage");
+
+        //mengambil data user
+        const users = getUsers();
+        console.log(users);
+
+        //cek npk sudah terdaftar
+        const existingUser = users.find(function(user){
+            return user.npk === npk;
+        });
+
+        if (existingUser) {
+            message.innerText ="NPK sudah terdaftar";
+            message.className ="error";
+            return;
+        }
+
+        //cek password
+        if (password !== confirmPassword) {
+            message.innerText ="Konfirmasi password tidak sesuai";
+            message.className ="error";
+            return;
+        }
+
+        //hash ps
+        const passwordHash = await hashPassword(password);
+
+        //buat data user baru
+        const newUser = {
+            npk: npk, name: name, passwordHash: passwordHash
+        };
+        
+        //masukkan user baru
+        users.push(newUser);
+
+        //simpan local storage
+        saveUsers(users);
+        message.innerText = "Registrasi Berhasil!";
+        message.className = "success";
+
+        setTimeout(function(){
+            window.location.href = "login.html";
+        }, 1500);
+    });
+}
+
+function getUsers(){
+    return JSON.parse(
+        localStorage.getItem("users")
+    ) || [];
+}
+
+function saveUsers(users){
+    localStorage.setItem("users", JSON.stringify(users));
+}
+
+const forgotPasswordForm =
+    document.getElementById("forgotPasswordForm");
+
+if (forgotPasswordForm) {
+
+    forgotPasswordForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+            const npk = document.getElementById("npk").value.trim();
+            const newPassword = document.getElementById("newPassword").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+            const message = document.getElementById("forgotMessage");
+
+            // Ambil data user dari Local Storage
+            const users = getUsers();
+
+            // Cari user berdasarkan NPK
+            const user = users.find(
+                function (user) {
+                    return user.npk === npk;
+                }
+            );
+
+
+            // NPK tidak ditemukan
+            if (!user) {
+                message.innerText = "NPK tidak ditemukan.";
+                message.className = "error";
+                return;
+            }
+
+
+            // Cek password baru
+            if (newPassword !== confirmPassword) {
+                message.innerText = "Konfirmasi password tidak sesuai.";
+                message.className = "error";
+                return;
+            }
+
+            // Hash password baru
+            const newPasswordHash =
+                await hashPassword(newPassword);
+
+            // Update password
+            user.passwordHash = newPasswordHash;
+
+
+            // Simpan kembali
+            saveUsers(users);
+
+            message.innerText = "Password berhasil diubah!";
+            message.className = "success";
+
+
+            // Kembali ke login
+            setTimeout(function() {
+                window.location.href = "login.html";
+            }, 1500);
+
+        }
+    );
+}
+
 

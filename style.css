@@ -29,10 +29,10 @@ h1 {
 
 /* ===== ANIMASI GAMBAR ===== */
 
-img {
+.denmaru {
     width: 300px;
 
-    animation: UpDown 3s ease-in-out infinite alternate;
+    animation: UpDown 3s ease-in-out infinite;
 }
 
 @keyframes UpDown {
@@ -87,6 +87,20 @@ button {
 
 /*=== FITUR DARK MODE ==== */
 
+body{
+    background-color: white;
+    color: #333;
+}
+
+input{
+    background-color: white;
+    color: #333;;
+}
+
+input::placeholder{
+    color: #666;
+}
+
 .dark {
     background-color: #474747;
     color: white;
@@ -102,100 +116,116 @@ button {
 }
 
 .dark button {
-    background-color: #444;
-    color: white;
+    background-color: white;
+    color: #444;
+    border-color: #444;
 }
 
 /* ===== LOGIN PAGE ===== */
-* {
-    box-sizing:border-box;
+
+.bi {
+    font-size: 20px;
+}
+/* ===== LOGIN ===== */
+
+body {
+    background-color: #f8f9fa;
 }
 
-.login-container {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+
+/* Card */
+
+.card {
+    border-radius: 16px;
 }
 
-.login-box {
-    width: 100%;
-    max-width: 400px;
-    padding: 35px;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+
+/* Input */
+
+.form-control {
+    min-height: 45px;
 }
 
-.login-box h1 {
-    text-align:center;
-    margin-bottom: 8px;
+.form-control:focus {
+    box-shadow: none;
 }
 
-.login-box > p {
-    text-align:center;
-    margin-bottom: 30px;
+
+/* Password Button */
+
+#togglePassword {
+    background:transparent;
 }
 
-.input-group {
-    margin-bottom: 18px;
+#togglePassword:focus {
+    box-shadow: none;
 }
 
-.input-group label {
-    display: block;
-    margin-bottom: 7px;
-    font-weight: bold;
+#togglePassword i {
+    font-size: 18px;
 }
 
-.login-box input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 7px;
-    font-size: 15px;
+#toggleNewPassword,
+#toggleConfirmPassword {
+    color: #6c757d;
 }
 
-.login-box input:focus {
-    border-color: #007BFF;
-    outline: none;
+#toggleNewPassword:hover,
+#toggleConfirmPassword:hover {
+    color: #212529;
 }
 
-.login-box button {
-    width: 100%;
-    padding: 12px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 7px;
-    font-size: 16px;
-    cursor: pointer;
+#toggleNewPassword:focus,
+#toggleConfirmPassword:focus {
+    box-shadow: none;
 }
 
-.login-box button:hover {
-    background-color:#0056b3;
+
+/* Login Button */
+
+.btn-primary {
+    min-height: 45px;
 }
 
-#loginMessage {
-    display: block;
-    width: 100%;
-    margin: 15px auto;
-    text-align: center !important;
-}
+
+/* Login Message */
 
 #loginMessage.success {
-    color: green !important;
+    color: #198754;
 }
 
 #loginMessage.error {
+    color: #dc3545;
+}
+
+#registerMessage,
+#forgotMessage {
+    display: block;
+    width: 100%;
+    margin: 15px auto;
+    text-align: center;
+}
+
+#registerMessage.success,
+#forgotMessage.success {
+    color: green !important;
+}
+
+#registerMessage.error,
+#forgotMessage.error {
     color: red !important;
 }
 
-.back-link {
-    display: block;
+.register-link {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 15px;
+}
+
+.register-link a {
     color: #007BFF;
     text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
 }

@@ -5,32 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Git Learning</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="style.css"/>
 </head>
 
 <body>
-    <h1>MAGANG PT DENSO INDONESIA</h1>
+    <h1 class="text-center mt-5">MAGANG PT DENSO INDONESIA</h1>
     <!--<div id="userInfo"></div>-->
     <div class="container">
-    <img src="image/denmaru.png" alt="denmaru">
+        <div class="text-center">
+    <img src="image/denmaru.png" alt="denmaru" class="img-fluid denmaru">
+    </div>
     <h1 id="hasil"></h1>
     
     <div class="form">
-        <input type="text" id="YouName" placeholder="Masukkan nama">
-        <button onclick="tegur()">Kirim</button>
-        <button onclick="resetForm()">Reset</button>
-        <button id="themeButton" onclick="darkMode()">🌙 Dark Mode</button>
+        <input type="text" id="YouName" placeholder="Masukkan nama" class="form-control">
+        <div class="d-flex align-items-center gap-2 mt-2">
+        <button class="btn btn-primary" onclick="tegur()">Kirim</button>
+        <button class="btn btn-primary" onclick="resetForm()">Reset</button>
+        <button class="btn btn-primary" id="themeButton" onclick="darkMode()">🌙 Dark Mode</button>
 
-        <a href="login.html">Login</a>
+        <a href="login.html" class="btn btn-outline-primary">Login</a>
 
         <div id ="hasil"></div>
+        </div>
     </div>
     </div>
     
-    <script src="script.js"></script>\
-    <!--<script>
-        tampilkanUser();
-    </script>-->
+    <script src="script.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     
 
 
