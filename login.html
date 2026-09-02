@@ -26,7 +26,7 @@
                         </div>
 
 
-                        <form id="loginForm">
+                        <form id="loginForm" action="backend/proses_login.php" method="POST">
                             <div class="mb-3">
                                 <!-- NPK-->
                                 <label for="npk" class="form-label fw-semibold">NPK</label>
@@ -42,7 +42,7 @@
                                 
                                 <button type="button" id="togglePassword" class="btn position-absolute top-50 end-0 translate-middle-y me-2 p-0 border-0" aria-label="Tampilkan password">
                                     
-                                    <i class="bi bi-eye"></i>
+                                    <i class="bi bi-eye-slash"></i>
                                 
                                 </button>
                             </div>
@@ -58,7 +58,7 @@
 
 
                             <!-- Login Message -->
-                            <div id="loginMessage" class="text-center mt-3"></div>
+                            <div id="loginMessage" class="text-center mt-2"></div>
                         </form>
 
 
@@ -79,6 +79,6 @@
 
     <!-- Custom JS -->
     <script src="script.js"></script>
-    
+
 </body>
 </html>

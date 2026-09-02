@@ -46,7 +46,7 @@ function darkMode(){
     document.getElementById("hasil").innerText = "";
 }*/
 
-const defaultUsers = [
+/* const defaultUsers = [
     {
         npk: "1234567", passwordHash: "06ba33499107fa199d223b4d925ab5706289a514753256b0795fd7da4a962153"
     }];
@@ -54,7 +54,7 @@ const defaultUsers = [
 if (!localStorage.getItem("users")) {
     localStorage.setItem("users", JSON.stringify(defaultUsers)
     );
-}
+}*/
 
 const loginForm = document.getElementById("loginForm");
 
@@ -66,37 +66,49 @@ if (loginForm) {
         const password = document.getElementById("password").value;
         const message = document.getElementById("loginMessage");
 
-        // Ambil user dari Local Storage
-        const users = getUsers();
+        try {
 
-        // Cari user berdasarkan NPK
-        const user = users.find(function(user) {
-            return user.npk === npk;
-        });
+            const response = await fetch("backend/proses_login.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: new URLSearchParams({
+                    npk_user: npk,
+                    password_asli: password
+                })
+            });
 
-        if (!user) {
-            message.innerText = "Login gagal! NPK tidak ditemukan.";
+            const result = await response.json();
+
+            console.log(result);
+
+            if (result.status === "success") {
+
+                message.innerText = "Login berhasil!";
+                message.className = "success";
+
+                sessionStorage.setItem("npk", result.data.npk);
+
+                setTimeout(function() {
+                    window.location.href = "main.html";
+                }, 1500);
+
+            } else {
+
+                message.innerText = result.message;
+                message.className = "error";
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            message.innerText = "Terjadi kesalahan saat menghubungi server.";
             message.className = "error";
-            return;
+
         }
-
-        const passwordHash = await hashPassword(password);
-
-        if (passwordHash !== user.passwordHash) {
-            message.innerText = "Login gagal! Password salah";
-            message.className = "error";
-            return;
-        }
-
-        message.innerText = "Login berhasil!";
-        message.className = "success";
-
-        sessionStorage.setItem("npk", user.npk);
-        sessionStorage.setItem("name", user.name);
-
-        setTimeout(function() {
-            window.location.href = "main.html";
-        }, 1500);
     });
 }
 

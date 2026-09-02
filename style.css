@@ -189,6 +189,12 @@ body {
 
 
 /* Login Message */
+#loginMessage {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
 
 #loginMessage.success {
     color: #198754;
