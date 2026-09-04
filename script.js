@@ -68,7 +68,7 @@ if (loginForm) {
 
         try {
 
-            const response = await fetch("backend/proses_login.php", {
+            const response = await fetch("backend/loginProcess.php", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
@@ -202,6 +202,68 @@ setupPasswordToggle(
 
 const registerForm = document.getElementById("registerForm");
 
+if (registerForm) {
+    registerForm.addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const npk = document.getElementById("npk").value.trim();
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+        const message = document.getElementById("registerMessage");
+
+        // Cek password
+        if (password !== confirmPassword) {
+            message.innerText = "Konfirmasi password tidak sesuai";
+            message.className = "error";
+            return;
+        }
+
+        try {
+
+            const response = await fetch("backend/register.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: new URLSearchParams({
+                    npk_user: npk,
+                    password_asli: password
+                })
+            });
+
+            const result = await response.json();
+
+            console.log(result);
+
+            if (result.status === "success") {
+
+                message.innerText = "Registrasi Berhasil!";
+                message.className = "success";
+
+                setTimeout(function() {
+                    window.location.href = "login.html";
+                }, 1500);
+
+            } else {
+
+                message.innerText = result.message;
+                message.className = "error";
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            message.innerText = "Terjadi kesalahan saat menghubungi server.";
+            message.className = "error";
+
+        }
+    });
+}
+
+/*const registerForm = document.getElementById("registerForm");
+
 if (registerForm){
     registerForm.addEventListener("submit", async function (event) {
         event.preventDefault();
@@ -326,6 +388,74 @@ if (forgotPasswordForm) {
 
         }
     );
+}*/
+
+const forgotPasswordForm =
+    document.getElementById("forgotPasswordForm");
+
+if (forgotPasswordForm) {
+
+    forgotPasswordForm.addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+        const npk = document.getElementById("npk").value.trim();
+        const newPassword = document.getElementById("newPassword").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+        const message = document.getElementById("forgotMessage");
+
+        // Cek password baru
+        if (newPassword !== confirmPassword) {
+            message.innerText = "Konfirmasi password tidak sesuai.";
+            message.className = "error";
+            return;
+        }
+
+        try {
+
+            const response = await fetch("backend/forgotPassword.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: new URLSearchParams({
+                    npk_user: npk,
+                    password_baru: newPassword,
+                    konfirmasi_password: confirmPassword
+                })
+            });
+
+            const result = await response.json();
+
+            console.log(result);
+
+            if (result.status === "success") {
+
+                message.innerText = "Password berhasil diubah!";
+                message.className = "success";
+
+                setTimeout(function() {
+                    window.location.href = "login.html";
+                }, 1500);
+
+            } else {
+
+                message.innerText = result.message;
+                message.className = "error";
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            message.innerText =
+                "Terjadi kesalahan saat menghubungi server.";
+            message.className = "error";
+
+        }
+
+    });
 }
 
 
